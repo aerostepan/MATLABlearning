@@ -1,7 +1,7 @@
 clear;
 clc;
 x0 = [0
-    1];
+    1]; % 0 because we don't count gravity, so no speed along y axis
 
 opts = odeset('Events','eventFkn','RelTol',1e-6,'AbsTol',1e-8);
 tspan = 0:0.001:0.2;
