@@ -3,7 +3,7 @@ close all
 
 syms x y
 f = 0.1*x^2 + 0.2*y^2+1;
-fg = gradient(f);
+fg = gradient(f, [x y]);
 
 f = matlabFunction(f);
 fg = matlabFunction(fg);
