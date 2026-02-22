@@ -9,7 +9,7 @@ f = matlabFunction(f);
 fg = matlabFunction(fg);
 
 max = 3;
-S0 = randi([-max max],2,1);
+S0 = -max + 2*max*rand(2,1);
 
 u = linspace(-max,max,100);
 [XX,YY] = meshgrid(u,u);

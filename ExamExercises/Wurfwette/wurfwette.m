@@ -1,28 +1,28 @@
-%% Methode 1 ohne Parameterbegrenzung x und alpha
-% erneute Gobal definition (glaube nicht umbedingt nötig)
-global v0i h0i v0 Koerpergr
-%Betrag vo aus Angabe
-v0=15;
-%Festlegung Körpergröße falls nicht angegeben
-Koerpergr=1.80;
+clear; clc;
+g = 9.81;
+m = 0.8;
+cw = 0.45;
+rho = 1.227;
+d = 0.25;
+v_up = 4;
+neighbor_start = 10;
+neighbor_roof = 80*0.3048 - 2;
+street = 0;
+v0 = 12;
+angles = -5:5:85;
 
-% [Berechnung des Maximalen x dass die Abwurfhöhe positiv ist (für die
-%Alternative Methode]
-x_limits=(Koerpergr/(0.1))^0.5;
-
-%Guess Vektoren für ersten Durchgang [x; alpha]
-V_Guess=[2;40];
-
-%Achtung bevor der Optimierung noch Checken ob alle Solver Einstellungen,
-%Alle Output einstellungen und alle Scopes richtig Eingestellt sind
-
-%Parameter so aussuchen dass Wurfweite maximal wird (Maximum=-Minimum)
-
-[Optim_Vec_found, neg_Wurfmaximum]=fminsearch(@(In_Vec) wurfwettefunc(In_Vec),V_Guess);
-format compact
-Optimal_x=Optim_Vec_found(1)
-Optimal_alpha=Optim_Vec_found(2)
-Maximale_Wurfweite=-neg_Wurfmaximum
-
-
-
+for alpha = angles
+    
+    vx0 = v0*cosd(alpha);
+    vy0 = v0*sind(alpha);
+    
+    set_param('wurfwettesim/vx','InitialCondition',num2str(vx0));
+    set_param('wurfwettesim/vy','InitialCondition',num2str(vy0));
+    
+    simOut = sim('your_model');
+    
+    x = simOut.logsout.getElement('x').Values.Data;
+    range = x(end);
+    
+    fprintf('Angle %3d deg → Range %.2f m\n',alpha,range);
+end
