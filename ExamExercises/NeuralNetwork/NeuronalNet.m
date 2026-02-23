@@ -30,6 +30,9 @@ options=trainingOptions('adam',...
 net=trainNetwork(XTrain,YTrain,layers,options);
 
 %Netzwerk testen
-idx_einer_Testzahl=126; %zwischen 1 und 10000 (Testdatengröße)
-out=predict(net,XTest(:,:,:,idx_einer_Testzahl))
-tatsaechlicheZahl=YTest(idx_einer_Testzahl)
+YTest = classify(net,XTest);
+YTrue = YTest;
+confMat = confusionmat(YTrue, YTest);
+disp(confMat)
+figure;
+confusionchart(YTrue,YTest)
