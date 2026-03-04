@@ -19,5 +19,5 @@ plot(t,q,'LineWidth',2);
 legend('/alpha','q')
 grid on
 
-a22_opt = fminsearch(@costFkt, -1)
+a22_opt = fminsearch(@costFkt, -1);
 disp(['Optimal a22 = ',num2str(a22_opt)])
